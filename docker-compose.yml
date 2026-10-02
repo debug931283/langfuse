@@ -134,6 +134,21 @@ services:
       LANGFUSE_IN_APP_AGENT_MAX_ACTIVE_RUNS_PER_USER: ${LANGFUSE_IN_APP_AGENT_MAX_ACTIVE_RUNS_PER_USER:-}
       LANGFUSE_IN_APP_AGENT_MAX_ACTIVE_RUNS_PER_ORG: ${LANGFUSE_IN_APP_AGENT_MAX_ACTIVE_RUNS_PER_ORG:-}
 
+  otel-collector:
+    image: docker.io/otel/opentelemetry-collector-contrib:latest
+    restart: always
+    command: ["--config=/etc/otelcol/config.yaml"]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otelcol/config.yaml:ro
+    environment:
+      LANGFUSE_PUBLIC_KEY: ${LANGFUSE_INIT_PROJECT_PUBLIC_KEY}
+      LANGFUSE_SECRET_KEY: ${LANGFUSE_INIT_PROJECT_SECRET_KEY}
+    ports:
+      - 127.0.0.1:4317:4317 # OTLP gRPC
+      - 127.0.0.1:4318:4318 # OTLP HTTP
+    depends_on:
+      - langfuse-web
+
   clickhouse:
     image: docker.io/clickhouse/clickhouse-server:25.12
     restart: always
