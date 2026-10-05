@@ -10,5 +10,5 @@ set OTEL_METRICS_EXPORTER=
 set OTEL_LOGS_EXPORTER=
 set OTEL_RESOURCE_ATTRIBUTES=
 
-rem Comma-separated custom tags added to every trace.
-set CC_LANGFUSE_TRACE_TAGS=SOME_TAG
+rem Comma-separated custom tags added to every trace (up to 20), e.g. tag-one,tag-two,env:local
+set CC_LANGFUSE_TRACE_TAGS=tag-one,tag-two,env:local

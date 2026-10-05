@@ -9,5 +9,5 @@ foreach ($name in @(
     Remove-Item "Env:$name" -ErrorAction SilentlyContinue
 }
 
-# Comma-separated custom tags added to every trace.
-$env:CC_LANGFUSE_TRACE_TAGS = "SOME_TAG"
+# Comma-separated custom tags added to every trace (up to 20), e.g. "tag-one,tag-two,env:local".
+$env:CC_LANGFUSE_TRACE_TAGS = "tag-one,tag-two,env:local"

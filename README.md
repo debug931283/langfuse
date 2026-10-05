@@ -69,7 +69,7 @@ Three scripts are provided. Choose one based on your shell:
 - `run_b4_starting_claudecode_cli.ps1` — PowerShell (Windows, macOS, Linux)
 - `run_b4_starting_claudecode_cli.bat` — Command Prompt (Windows)
 
-Each one sets `CC_LANGFUSE_TRACE_TAGS` (edit `SOME_TAG` to your own tag) and clears any leftover OpenTelemetry variables, so sessions are not traced twice.
+Each one sets `CC_LANGFUSE_TRACE_TAGS` (edit the example `tag-one,tag-two,env:local` to your own tags, comma-separated) and clears any leftover OpenTelemetry variables, so sessions are not traced twice.
 
 ```bash
 source run_b4_starting_claudecode_cli.sh      # Bash / Zsh
