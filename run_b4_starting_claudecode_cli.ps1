@@ -1,8 +1,13 @@
-$env:CLAUDE_CODE_ENABLE_TELEMETRY = "1"
-$env:CLAUDE_CODE_ENHANCED_TELEMETRY_BETA = "1"
-$env:OTEL_EXPORTER_OTLP_ENDPOINT = "http://localhost:4317"
-$env:OTEL_EXPORTER_OTLP_PROTOCOL = "grpc"
-$env:OTEL_TRACES_EXPORTER = "otlp"
-$env:OTEL_METRICS_EXPORTER = "none"
-$env:OTEL_LOGS_EXPORTER = "none"
-$env:OTEL_RESOURCE_ATTRIBUTES = "session.tag=SOME_TAG"
+# Tracing is done by the langfuse-observability plugin (Stop hook), not OpenTelemetry.
+# Clear any OTel exporter variables left over from an earlier setup to avoid duplicate traces.
+foreach ($name in @(
+    "CLAUDE_CODE_ENABLE_TELEMETRY", "CLAUDE_CODE_ENHANCED_TELEMETRY_BETA",
+    "OTEL_EXPORTER_OTLP_ENDPOINT", "OTEL_EXPORTER_OTLP_PROTOCOL",
+    "OTEL_TRACES_EXPORTER", "OTEL_METRICS_EXPORTER", "OTEL_LOGS_EXPORTER",
+    "OTEL_RESOURCE_ATTRIBUTES"
+)) {
+    Remove-Item "Env:$name" -ErrorAction SilentlyContinue
+}
+
+# Comma-separated custom tags added to every trace.
+$env:CC_LANGFUSE_TRACE_TAGS = "SOME_TAG"
